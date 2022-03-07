@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <math.h>
 #include "common.h"
+#include "moore.cpp"
 
 //
 //  benchmarking program
