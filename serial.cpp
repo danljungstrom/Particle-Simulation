@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <math.h>
 #include "common.h"
-#include "moore.cpp"
+#include "moore.h"
 
 //
 //  benchmarking program
@@ -27,6 +27,7 @@ int main( int argc, char **argv )
     particle_t *particles = (particle_t*) malloc( n * sizeof(particle_t) );
     set_size( n );
     init_particles( n, particles );
+    Nh nh = create_neighbourhood(n);
     
     //
     //  simulate a number of time steps
@@ -40,6 +41,18 @@ int main( int argc, char **argv )
         for( int i = 0; i < n; i++ )
         {
             particles[i].ax = particles[i].ay = 0;
+
+            int nsize = get_nsize(n);
+            int nx = n_coord(particles[i].x);
+            int ny = n_coord(particles[i].y);
+
+            for(int x = max(nx - 1, 0); x <= min(nx + 1, nsize); x++){
+                for(int y = max(ny - 1, 0); y <= min(ny + 1, nsize); y++){
+                    printf("%s", nh[nx * nsize + ny].empty() ? "true" : "false");
+                    //particle_t* p = nh[nx * nsize + ny];
+                    //printf("%f", px);
+                }
+            }
             for (int j = 0; j < n; j++ )
                 apply_force( particles[i], particles[j] );
         }
@@ -47,8 +60,10 @@ int main( int argc, char **argv )
         //
         //  move particles
         //
-        for( int i = 0; i < n; i++ ) 
+        for( int i = 0; i < n; i++ ){ 
             move( particles[i] );
+            //printf("(%f, %f), ", particles[i].x, particles[i].y);
+        }
         
         //
         //  save if necessary

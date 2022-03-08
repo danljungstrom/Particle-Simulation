@@ -1,26 +1,38 @@
 #include <stdlib.h>
-#include <stdlib.h>
 #include <list>
 #include <vector>
-#include "common.cpp"
+#include "common.h"
+#include "moore.h"
 
 using namespace std;
 
 typedef list<particle_t*> Part_list;
 typedef vector<Part_list> Nh;
 
-void* create_neighbourhood(int n){
-    set_size(n);
-    int rows = (int) (size/cutoff + 1);
-    int grid_size = rows * rows + rows;
-    Nh nh(grid_size);
-    void* ptr = malloc(sizeof(nh));
-    for(int i = rows; i < grid_size; i++){
+Nh create_neighbourhood(int n){
+    int rows = get_rows(n);
+    int n_size = get_nsize(n);
+
+    Nh nh(n_size);
+    //Nh* ptr = malloc(sizeof(nh));
+    for(int i = rows; i < n_size; i++){
             Part_list l = {};
             nh[i] = l;
     }
-    return ptr;
+    return nh;
 }
+
+int get_rows(int n){
+    double size = set_size(n);
+    int rows = n_coord(size) + 1;
+    return rows;
+}
+
+int get_nsize(int n){
+    int rows = get_rows(n);
+    return rows * rows + rows;
+}
+
 
 void add_particle(particle_t* particle, Nh nh, int edge_size){
     int x = (int)((particle->ax) * edge_size / cutoff);
@@ -34,4 +46,8 @@ void add_particle(particle_t* particle, Nh nh, int edge_size){
 void remove_particle(particle_t* particle, int cord, Nh nh){
 
     nh[cord].remove(particle);
+}
+
+int n_coord(double coord){
+    return (int) (coord/cutoff);
 }

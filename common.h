@@ -1,6 +1,10 @@
 #ifndef __CS267_COMMON_H__
 #define __CS267_COMMON_H__
 
+#include <cstdio>
+
+using namespace std;
+
 inline int min( int a, int b ) { return a < b ? a : b; }
 inline int max( int a, int b ) { return a > b ? a : b; }
 
@@ -24,6 +28,11 @@ typedef struct
 } particle_t;
 
 //
+//  variables
+//
+#define cutoff  0.01
+
+//
 //  timing routines
 //
 double read_timer( );
@@ -31,7 +40,7 @@ double read_timer( );
 //
 //  simulation routines
 //
-void set_size( int n );
+double set_size( int n );
 void init_particles( int n, particle_t *p );
 void apply_force( particle_t &particle, particle_t &neighbor );
 void move( particle_t &p );
