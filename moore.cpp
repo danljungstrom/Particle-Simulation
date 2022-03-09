@@ -9,17 +9,17 @@ using namespace std;
 typedef list<particle_t*> Part_list;
 typedef vector<Part_list> Nh;
 
-Nh create_neighbourhood(int n){
+Nh* create_neighbourhood(int n){
     int rows = get_rows(n);
     int n_size = get_nsize(n);
 
     Nh nh(n_size);
-    //Nh* ptr = malloc(sizeof(nh));
+    Nh* ptr = malloc(sizeof(nh));
     for(int i = rows; i < n_size; i++){
             Part_list l = {};
             nh[i] = l;
     }
-    return nh;
+    return ptr;
 }
 
 int get_rows(int n){

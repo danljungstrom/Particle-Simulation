@@ -48,9 +48,8 @@ int main( int argc, char **argv )
 
             for(int x = max(nx - 1, 0); x <= min(nx + 1, nsize); x++){
                 for(int y = max(ny - 1, 0); y <= min(ny + 1, nsize); y++){
-                    printf("%s", nh[nx * nsize + ny].empty() ? "true" : "false");
-                    //particle_t* p = nh[nx * nsize + ny];
-                    //printf("%f", px);
+                    particle_t* p = *nh[nx * nsize + ny];
+                    printf("%f", p.x);
                 }
             }
             for (int j = 0; j < n; j++ )
