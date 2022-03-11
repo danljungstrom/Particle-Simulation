@@ -18,5 +18,6 @@ void add_particle(particle_t* particle, Nh* nh, int n);
 void remove_particle(particle_t* particle, int cord, Nh nh);
 int reduce_coord(int size, double x, double y);
 int n_coord(double coord);
+void test();
 
 #endif

@@ -26,13 +26,16 @@ int main( int argc, char **argv )
     FILE *fsave = savename ? fopen( savename, "w" ) : NULL;
     particle_t *particles = (particle_t*) malloc( n * sizeof(particle_t) );
     set_size( n );
+    
     init_particles( n, particles );
     Nh* nh = create_neighbourhood(n);
-    if((*nh)[0] == NULL)
+    //if((*nh)[0] == NULL)
         printf("wihoo");
     for(int i = 0; i < n; i++){
        add_particle(&particles[i], *&nh, n); //maybe *&nh?
     }
+    int nsize = get_nsize(n);
+    //test();
     
     //
     //  simulate a number of time steps
@@ -47,7 +50,7 @@ int main( int argc, char **argv )
         {
             particles[i].ax = particles[i].ay = 0;
 
-            int nsize = get_nsize(n);
+            
             int nx = n_coord(particles[i].x);
             int ny = n_coord(particles[i].y);
 
