@@ -27,7 +27,12 @@ int main( int argc, char **argv )
     particle_t *particles = (particle_t*) malloc( n * sizeof(particle_t) );
     set_size( n );
     init_particles( n, particles );
-    Nh nh = create_neighbourhood(n);
+    Nh* nh = create_neighbourhood(n);
+    if((*nh)[0] == NULL)
+        printf("wihoo");
+    for(int i = 0; i < n; i++){
+       add_particle(&particles[i], *&nh, n); //maybe *&nh?
+    }
     
     //
     //  simulate a number of time steps
@@ -48,8 +53,11 @@ int main( int argc, char **argv )
 
             for(int x = max(nx - 1, 0); x <= min(nx + 1, nsize); x++){
                 for(int y = max(ny - 1, 0); y <= min(ny + 1, nsize); y++){
-                    particle_t* p = *nh[nx * nsize + ny];
-                    printf("%f", p.x);
+                    //if((*nh).size() > 0){
+                        //Part_list* pl = (*nh)[nx * nsize + ny];
+                        //particle_t* p = (*pl).front(); 
+                        //printf("%f", p->x);
+                    //}
                 }
             }
             for (int j = 0; j < n; j++ )

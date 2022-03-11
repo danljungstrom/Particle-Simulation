@@ -7,18 +7,25 @@
 using namespace std;
 
 typedef list<particle_t*> Part_list;
-typedef vector<Part_list> Nh;
+typedef vector<Part_list*> Nh;
 
 Nh* create_neighbourhood(int n){
     int rows = get_rows(n);
     int n_size = get_nsize(n);
 
-    Nh nh(n_size);
-    Nh* ptr = malloc(sizeof(nh));
-    for(int i = rows; i < n_size; i++){
+    
+    Nh* ptr;
+    if((ptr = (Nh*)malloc(sizeof(Nh) * n_size * n_size)) != NULL){
+        Nh nh(n_size);
+        *ptr = nh;
+        for(int i = rows; i < n_size; i++){
             Part_list l = {};
-            nh[i] = l;
-    }
+            
+            nh[i] = &l;
+            
+        }
+    }else
+        printf("rip malloc");
     return ptr;
 }
 
@@ -34,20 +41,24 @@ int get_nsize(int n){
 }
 
 
-void add_particle(particle_t* particle, Nh nh, int edge_size){
-    int x = (int)((particle->ax) * edge_size / cutoff);
-    int y = (int)((particle->ay) / cutoff);
-    int cord = x + y;
+void add_particle(particle_t* particle, Nh* nh, int n){
+    
 
+    int cord = reduce_coord(get_rows(n), particle->x, particle->y);
+    
+    Part_list* pl = (*nh)[0];
 
-    nh[cord].push_back(particle);
+    pl->push_back(particle);
 }
 
 void remove_particle(particle_t* particle, int cord, Nh nh){
 
-    nh[cord].remove(particle);
 }
 
 int n_coord(double coord){
     return (int) (coord/cutoff);
+}
+
+int reduce_coord(int size, double x, double y){
+    return (int)(n_coord(x) * size + n_coord(y));
 }
