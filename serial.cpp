@@ -30,11 +30,12 @@ int main( int argc, char **argv )
     init_particles( n, particles );
     Nh* nh = create_neighbourhood(n);
     //if((*nh)[0] == NULL)
-        printf("wihoo");
     for(int i = 0; i < n; i++){
+        //printf("before %f\n", particles[i].x);
        add_particle(&particles[i], *&nh, n); //maybe *&nh?
     }
     int nsize = get_nsize(n);
+    int rows = get_rows(n);
     //test();
     
     //
@@ -53,18 +54,27 @@ int main( int argc, char **argv )
             
             int nx = n_coord(particles[i].x);
             int ny = n_coord(particles[i].y);
+            
+            //printf("nx %d, ny%d\n", nx, ny);
 
             for(int x = max(nx - 1, 0); x <= min(nx + 1, nsize); x++){
                 for(int y = max(ny - 1, 0); y <= min(ny + 1, nsize); y++){
-                    //if((*nh).size() > 0){
-                        //Part_list* pl = (*nh)[nx * nsize + ny];
-                        //particle_t* p = (*pl).front(); 
-                        //printf("%f", p->x);
-                    //}
+                    //printf("x %d, y%d\n", x, y);
+                    if((*nh).size() > 0){
+                        Part_list* pl = nh->at(nx * rows + ny);
+                        particle_t* p = pl->front();
+                        //printf("%ld\n", sizeof(pl->begin()));
+                        iterator it = pl->begin();
+                        //if(pl->size() < 2)
+                            //printf("%ld\n", pl->size());
+                        /*for(particle_t part = pl->begin(); part != pl->end(); ++part){
+                            printf("part");
+                        }*/
+                        
+                    }
                 }
             }
-            for (int j = 0; j < n; j++ )
-                apply_force( particles[i], particles[j] );
+                
         }
         
         //
