@@ -11,15 +11,6 @@
 double size;
 
 //
-//  tuned constants
-//
-#define density 0.0005
-#define mass    0.01
-#define cutoff  0.01
-#define min_r   (cutoff/100)
-#define dt      0.0005
-
-//
 //  timer
 //
 double read_timer( )
@@ -174,4 +165,12 @@ char *read_string( int argc, char **argv, const char *option, char *default_valu
     if( iplace >= 0 && iplace < argc-1 )
         return argv[iplace+1];
     return default_value;
+}
+
+int n_coord(double coord) {
+    return (int)(coord / cutoff);
+}
+
+int reduce_coord(int size, double x, double y) {
+    return (int)(n_coord(x) * size + n_coord(y));
 }

@@ -34,8 +34,13 @@ int main( int argc, char **argv )
     init_particles( n, particles );
     
     int nh_size = (size / cutoff) + 1; // TODO: Rounding errors?
-    Nh nh;
+    Nh_t nh;
     neighborhood_initialize(nh, nh_size);
+
+    for (int i = 0; i < n; ++i)
+    {
+        particle_add(nh, &particles[i]);
+    }
 
     //
     //  simulate a number of time steps
@@ -49,15 +54,35 @@ int main( int argc, char **argv )
         for( int i = 0; i < n; i++ )
         {
             particles[i].ax = particles[i].ay = 0;
-            for (int j = 0; j < n; j++ )
-                apply_force( particles[i], particles[j] );
+
+            int nx = n_coord(particles[i].x);
+            int ny = n_coord(particles[i].y);
+
+            for(int x = max(nx - 1, 0); x <= min(nx + 1, nh_size - 1); x++)
+                for (int y = max(ny - 1, 0); y <= min(ny + 1, nh_size - 1); y++) {
+                    part_list_t* pl = nh.neighborhood[x * nh_size + y];
+                    while (pl != NULL)
+                    {
+                        apply_force(particles[i], *(pl->value));
+                        pl = pl->next;
+                    }
+                }
         }
         
         //
         //  move particles
         //
-        for( int i = 0; i < n; i++ ) 
-            move( particles[i] );
+        for (int i = 0; i < n; i++) {
+            int prev_coord = reduce_coord(nh_size, particles[i].x, particles[i].y);
+            move(particles[i]);
+            int new_coord = reduce_coord(nh_size, particles[i].x, particles[i].y);
+
+            if (prev_coord != new_coord) {
+                if (!particle_remove(nh, &particles[i], prev_coord))
+                    printf("Could not remove particle.");
+                particle_add(nh, &particles[i]);
+            }
+        }
         
         //
         //  save if necessary
@@ -69,6 +94,7 @@ int main( int argc, char **argv )
     
     printf( "n = %d, simulation time = %g seconds\n", n, simulation_time );
     
+    nh_clear(nh);
     free( particles );
     if( fsave )
         fclose( fsave );

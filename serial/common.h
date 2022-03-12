@@ -60,4 +60,10 @@ int find_option( int argc, char **argv, const char *option );
 int read_int( int argc, char **argv, const char *option, int default_value );
 char *read_string( int argc, char **argv, const char *option, char *default_value );
 
+//
+// moore routines
+//
+int n_coord(double coord);
+int reduce_coord(int size, double x, double y);
+
 #endif
