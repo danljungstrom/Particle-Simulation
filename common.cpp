@@ -8,8 +8,6 @@
 #include <sys/time.h>
 #include "common.h"
 
-using namespace std;
-
 double size;
 
 //
@@ -17,7 +15,7 @@ double size;
 //
 #define density 0.0005
 #define mass    0.01
-//#define cutoff  0.01
+#define cutoff  0.01
 #define min_r   (cutoff/100)
 #define dt      0.0005
 
@@ -41,10 +39,9 @@ double read_timer( )
 //
 //  keep density constant
 //
-double set_size( int n )
+void set_size( int n )
 {
     size = sqrt( density * n );
-    return size;
 }
 
 //
@@ -75,7 +72,6 @@ void init_particles( int n, particle_t *p )
         //
         p[i].x = size*(1.+(k%sx))/(1+sx);
         p[i].y = size*(1.+(k/sx))/(1+sy);
-        //printf("(%f, %f), ", p[i].x*1000, p[i].y*1000);
 
         //
         //  assign random velocities within a bound
