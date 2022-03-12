@@ -6,7 +6,7 @@
 
 using namespace std;
 
-typedef vector<particle_t*> Part_list;
+typedef list<particle_t*> Part_list;
 typedef vector<Part_list*> Nh;
 
 Nh* create_neighbourhood(int n){
@@ -20,13 +20,10 @@ Nh* create_neighbourhood(int n){
     if((ptr = (Nh*)malloc(sizeof(Part_list*)* n_size * sizeof(particle_t*) * n)) != NULL){
         Nh nh(n_size);
         
-        //for(int i = rows; i < n_size; i++){
-            Part_list l(sizeof(particle_t*) * n);
-            fill(nh.begin(), nh.end(), (Part_list*)&l);
-            //printf("size %ld, max%ld\n", l.size(), l.max_size());
-            //nh[i] = (Part_list*)&l;
-            
-        //}
+        for(int i = rows; i < n_size; i++){
+            Part_list l = {};
+            nh[i] = (Part_list*)&l;
+        }
         *ptr = nh;
     }else
         printf("rip malloc");
@@ -56,10 +53,11 @@ int get_nsize(int n){
 
 
 void add_particle(particle_t* particle, Nh* nh, int n){
-    
     int cord = reduce_coord(get_rows(n), particle->x, particle->y);
     //printf("in func %f\n", particle->x);
+    printf("cord %d", cord);
     Part_list* pl = nh->at(cord);
+    printf(" size %ld\n", pl->size());
     //printf("size %ld, max%ld\n", pl->size(), pl->max_size());
     //printf("%f\n", pl->back()->x);
     pl->push_back(particle);

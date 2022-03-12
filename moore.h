@@ -8,7 +8,7 @@
 
 using namespace std;
 
-typedef vector<particle_t*> Part_list;
+typedef list<particle_t*> Part_list;
 typedef vector<Part_list*> Nh;
 
 Nh* create_neighbourhood(int n);

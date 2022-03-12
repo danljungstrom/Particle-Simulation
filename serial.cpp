@@ -54,27 +54,33 @@ int main( int argc, char **argv )
             
             int nx = n_coord(particles[i].x);
             int ny = n_coord(particles[i].y);
+            int coord = reduce_coord(rows, particles[i].x, particles[i].y);
             
-            //printf("nx %d, ny%d\n", nx, ny);
+            //printf("nx %d, ny %d, nx*rows+ny %d, coord %d\n", nx, ny, nx*rows+ny, coord);
 
             for(int x = max(nx - 1, 0); x <= min(nx + 1, nsize); x++){
                 for(int y = max(ny - 1, 0); y <= min(ny + 1, nsize); y++){
                     //printf("x %d, y%d\n", x, y);
-                    if((*nh).size() > 0){
-                        Part_list* pl = nh->at(nx * rows + ny);
-                        particle_t* p = pl->front();
+                        Part_list* pl = nh->at(coord);
+                        //particle_t* p = pl->front();
                         //printf("%ld\n", sizeof(pl->begin()));
-                        iterator it = pl->begin();
+                        //iterator it = pl->begin();
                         //if(pl->size() < 2)
                             //printf("%ld\n", pl->size());
                         /*for(particle_t part = pl->begin(); part != pl->end(); ++part){
                             printf("part");
                         }*/
                         
-                    }
+                        int m = 0;
+                        /*for (particle_t* part : *pl) {
+                            printf("Particle %d inside Part_list %d", m++, nx * rows * ny);
+                            if (part == NULL)
+                                printf(" is NULL.\n");
+                            else
+                                printf(".\n");
+                        }*/
                 }
-            }
-                
+            }    
         }
         
         //
