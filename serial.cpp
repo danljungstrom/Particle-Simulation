@@ -2,7 +2,13 @@
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h>
+#include <vector>
 #include "common.h"
+#include "moore.h"
+
+#define DEBUG 0
+using namespace std;
 
 //
 //  benchmarking program
@@ -24,9 +30,13 @@ int main( int argc, char **argv )
     
     FILE *fsave = savename ? fopen( savename, "w" ) : NULL;
     particle_t *particles = (particle_t*) malloc( n * sizeof(particle_t) );
-    set_size( n );
+    double size = set_size( n );
     init_particles( n, particles );
     
+    int nh_size = (size / cutoff) + 1; // TODO: Rounding errors?
+    Nh nh;
+    neighborhood_initialize(nh, nh_size);
+
     //
     //  simulate a number of time steps
     //
