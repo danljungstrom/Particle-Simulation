@@ -4,6 +4,9 @@
 #include <math.h>
 #include "common.h"
 #include "moore.h"
+#include <algorithm>
+#include <iterator>
+#include <iostream>
 
 //
 //  benchmarking program
@@ -32,7 +35,10 @@ int main( int argc, char **argv )
     //if((*nh)[0] == NULL)
     for(int i = 0; i < n; i++){
         //printf("before %f\n", particles[i].x);
-       add_particle(&particles[i], *&nh, n); //maybe *&nh?
+       int cord = reduce_coord(get_rows(n), particles[i].x, particles[i].y);
+       printf("Size before add function: %ld (%d)\n", nh[cord].size(), cord);
+       add_particle(&particles[i], nh, n); //maybe *&nh?
+       printf("Size after add function: %ld (%d)\n", nh[cord].size(), cord);
     }
     int nsize = get_nsize(n);
     int rows = get_rows(n);
@@ -62,7 +68,8 @@ int main( int argc, char **argv )
                 for(int y = max(ny - 1, 0); y <= min(ny + 1, nsize); y++){
                     //printf("x %d, y%d\n", x, y);
                         Part_list* pl = nh->at(coord);
-                        //particle_t* p = pl->front();
+                        particle_t* p = pl->front();
+                        //printf("%f", p->y);
                         //printf("%ld\n", sizeof(pl->begin()));
                         //iterator it = pl->begin();
                         //if(pl->size() < 2)
@@ -70,15 +77,16 @@ int main( int argc, char **argv )
                         /*for(particle_t part = pl->begin(); part != pl->end(); ++part){
                             printf("part");
                         }*/
-                        
-                        int m = 0;
-                        /*for (particle_t* part : *pl) {
-                            printf("Particle %d inside Part_list %d", m++, nx * rows * ny);
-                            if (part == NULL)
-                                printf(" is NULL.\n");
-                            else
-                                printf(".\n");
-                        }*/
+
+                        //for (int j = 0; j < pl->size() / sizeof(particle_t*); j++) {
+                            //printf("Particle %d inside Part_list %d\n", j, coord);
+                            //printf("Size of list is %ld, size of pointer is %ld\n", sizeof(*pl), sizeof(particle_t*));
+
+                            //if (pl->at(j) != NULL)
+                                //printf(" is not NULL!\n");
+                            //else
+                                //printf("IT IS FREAKING NULL!!!!");
+                        //}
                 }
             }    
         }

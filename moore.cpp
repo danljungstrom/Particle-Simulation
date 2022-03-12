@@ -6,7 +6,7 @@
 
 using namespace std;
 
-typedef list<particle_t*> Part_list;
+typedef vector<particle_t*> Part_list;
 typedef vector<Part_list*> Nh;
 
 Nh* create_neighbourhood(int n){
@@ -18,15 +18,23 @@ Nh* create_neighbourhood(int n){
     
     Nh* ptr;
     if((ptr = (Nh*)malloc(sizeof(Part_list*)* n_size * sizeof(particle_t*) * n)) != NULL){
-        Nh nh(n_size);
+        Nh nh(sizeof(Part_list*) * n_size);
         
-        for(int i = rows; i < n_size; i++){
-            Part_list l = {};
-            nh[i] = (Part_list*)&l;
+        for(int i = 0; i < n_size; i++){
+            Part_list* plp;
+            if ((plp = (Part_list*)malloc(sizeof(particle_t*) * n)) != NULL) {
+                Part_list l(sizeof(particle_t*) * (n / n_size) * 2);
+                *plp = l;
+                printf("Init: %ld - ", l.size());
+                nh[i] = plp;
+                printf("Nh add: %ld - \n", nh[i]->size());
+            }
+            else
+                printf("rip pl malloc");
         }
         *ptr = nh;
     }else
-        printf("rip malloc");
+        printf("rip nh malloc");
     //printf("%lu", (sizeof(Part_list*)* n_size * sizeof(particle_t*) * n));
     return ptr;
 }
@@ -55,12 +63,15 @@ int get_nsize(int n){
 void add_particle(particle_t* particle, Nh* nh, int n){
     int cord = reduce_coord(get_rows(n), particle->x, particle->y);
     //printf("in func %f\n", particle->x);
-    printf("cord %d", cord);
-    Part_list* pl = nh->at(cord);
-    printf(" size %ld\n", pl->size());
+    //printf("cord %d", cord);
+    printf("Size of Nh[cord] is: %ld (%d)\n", nh[cord].size(), cord);
+    printf("Size of Nh(at) is: %ld (%d)\n", nh->at(cord)->size(), cord);
+    Part_list* pl = (*nh)[cord];
+    printf("Before add size %ld (%d)\n", pl->size(), cord);
     //printf("size %ld, max%ld\n", pl->size(), pl->max_size());
     //printf("%f\n", pl->back()->x);
     pl->push_back(particle);
+    printf("After add size %ld (%d)\n", pl->size(), cord);
     //printf("after push %f\n", pl->back()->x);
 }
 
