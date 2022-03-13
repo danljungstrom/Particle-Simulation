@@ -15,6 +15,7 @@ struct Nh
 {
 	int size;
 	part_list_t** neighborhood;
+	pthread_mutex_t* lock;
 };
 
 typedef struct Nh Nh_t;

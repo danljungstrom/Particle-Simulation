@@ -33,7 +33,7 @@ int main( int argc, char **argv )
     double size = set_size( n );
     init_particles( n, particles );
     
-    int nh_size = (size / cutoff) + 1; // TODO: Rounding errors?
+    int nh_size = (size / cutoff) + 1;
     Nh_t nh;
     neighborhood_initialize(nh, nh_size);
 
@@ -58,9 +58,9 @@ int main( int argc, char **argv )
             int nx = n_coord(particles[i].x);
             int ny = n_coord(particles[i].y);
 
-            for(int x = max(nx - 1, 0); x <= min(nx + 1, nh_size - 1); x++)
-                for (int y = max(ny - 1, 0); y <= min(ny + 1, nh_size - 1); y++) {
-                    part_list_t* pl = nh.neighborhood[x * nh_size + y];
+            for(int x = max(nx - 1, 0); x <= min(nx + 1, nh.size - 1); x++)
+                for (int y = max(ny - 1, 0); y <= min(ny + 1, nh.size - 1); y++) {
+                    part_list_t* pl = nh.neighborhood[x * nh.size + y];
                     while (pl != NULL)
                     {
                         apply_force(particles[i], *(pl->value));
@@ -79,7 +79,7 @@ int main( int argc, char **argv )
 
             if (prev_coord != new_coord) {
                 if (!particle_remove(nh, &particles[i], prev_coord))
-                    printf("Could not remove particle.");
+                    printf("Could not remove particle.\n");
                 particle_add(nh, &particles[i]);
             }
         }

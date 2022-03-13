@@ -11,7 +11,13 @@ void neighborhood_initialize(Nh& nh, int size) {
     if ((nh.neighborhood = (part_list**) malloc(sizeof(part_list*) * size * size)) != NULL)
 		memset(nh.neighborhood, 0, sizeof(part_list*) * size * size);
 	else
-		printf("Neighborhood malloc error");
+		printf("Nh neighborhood malloc error");
+
+    if((nh.lock = (pthread_mutex_t*) malloc(sizeof(pthread_mutex_t) * size * size)) != NULL)
+        for (int i = 0; i < size * size; ++i)
+            pthread_mutex_init(&nh.lock[i], NULL);
+    else
+        printf("Nh lock malloc error");
 }
 
 void particle_add(Nh_t& nh, particle_t* p) {
@@ -20,24 +26,26 @@ void particle_add(Nh_t& nh, particle_t* p) {
     part_list_t* newElement = (part_list_t*)malloc(sizeof(part_list));
     newElement->value = p;
 
-    // Beginning of critical section
+    pthread_mutex_lock(&nh.lock[coord]);
     newElement->next = nh.neighborhood[coord];
 
     nh.neighborhood[coord] = newElement;
-    // End of critical section
+    pthread_mutex_unlock(&nh.lock[coord]);
 }
 
-bool particle_remove(Nh_t& nh, particle_t* p, int n_coord) {
-    if (n_coord == -1)
-        n_coord = reduce_coord(nh.size, p->x, p->y);
+bool particle_remove(Nh_t& nh, particle_t* p, int coord) {
+    if (coord == -1)
+        coord = reduce_coord(nh.size, p->x, p->y);
 
-    if (nh.neighborhood[n_coord] == 0)
+    if (nh.neighborhood[coord] == 0)
         return false;
+    
+    pthread_mutex_lock(&nh.lock[coord]);
 
-    part_list_t** particlePointer = &(nh.neighborhood[n_coord]);
-    part_list_t* part = nh.neighborhood[n_coord];
+    part_list_t** particlePointer = &(nh.neighborhood[coord]);
+    part_list_t* part = nh.neighborhood[coord];
 
-    while (part && part->value != p) {
+    while (part && (part->value != p)) {
         particlePointer = &(part->next);
         part = part->next;
     }
@@ -46,6 +54,8 @@ bool particle_remove(Nh_t& nh, particle_t* p, int n_coord) {
         *particlePointer = part->next;
         free(part);
     }
+
+    pthread_mutex_unlock(&nh.lock[coord]);
 
     return !!part;
 }

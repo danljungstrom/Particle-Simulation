@@ -4,6 +4,7 @@
 #include <math.h>
 #include <pthread.h>
 #include "common.h"
+#include "moore.h"
 
 //
 //  global variables
@@ -12,11 +13,14 @@ int n, n_threads;
 particle_t *particles;
 FILE *fsave;
 pthread_barrier_t barrier;
+Nh_t nh;
 
 //
 //  check that pthreads routine call was successful
 //
 #define P( condition ) {if( (condition) != 0 ) { printf( "\n FAILURE in %s, line %d\n", __FILE__, __LINE__ );exit( 1 );}}
+
+pthread_mutex_t task_lock = PTHREAD_MUTEX_INITIALIZER;
 
 //
 //  This is where the action happens
@@ -32,16 +36,27 @@ void *thread_routine( void *pthread_id )
     //
     //  simulate a number of time steps
     //
-    for( int step = 0; step < NSTEPS; step++ )
+    for (int step = 0; step < NSTEPS; step++)
     {
         //
         //  compute forces
         //
-        for( int i = first; i < last; i++ )
+        for (int i = 0; i < n; i++)
         {
             particles[i].ax = particles[i].ay = 0;
-            for (int j = 0; j < n; j++ )
-                apply_force( particles[i], particles[j] );
+
+            int nx = n_coord(particles[i].x);
+            int ny = n_coord(particles[i].y);
+
+            for (int x = max(nx - 1, 0); x <= min(nx + 1, nh.size - 1); x++)
+                for (int y = max(ny - 1, 0); y <= min(ny + 1, nh.size - 1); y++) {
+                    part_list_t* pl = nh.neighborhood[x * nh.size + y];
+                    while (pl != NULL)
+                    {
+                        apply_force(particles[i], *(pl->value));
+                        pl = pl->next;
+                    }
+                }
         }
         
         pthread_barrier_wait( &barrier );
@@ -49,8 +64,17 @@ void *thread_routine( void *pthread_id )
         //
         //  move particles
         //
-        for( int i = first; i < last; i++ ) 
-            move( particles[i] );
+        for (int i = 0; i < n; i++) {
+            int prev_coord = reduce_coord(nh.size, particles[i].x, particles[i].y);
+            move(particles[i]);
+            int new_coord = reduce_coord(nh.size, particles[i].x, particles[i].y);
+
+            if (prev_coord != new_coord) {
+                if (!particle_remove(nh, &particles[i], prev_coord))
+                    printf("Could not remove particle %d that moved from %d to %d.\n", i, prev_coord, new_coord);
+                particle_add(nh, &particles[i]);
+            }
+        }
         
         pthread_barrier_wait( &barrier );
         
@@ -92,8 +116,16 @@ int main( int argc, char **argv )
     fsave = savename ? fopen( savename, "w" ) : NULL;
 
     particles = (particle_t*) malloc( n * sizeof(particle_t) );
-    set_size( n );
+    double size = set_size( n );
     init_particles( n, particles );
+
+    int nh_size = (size / cutoff) + 1;
+    neighborhood_initialize(nh, nh_size);
+
+    for (int i = 0; i < n; ++i)
+    {
+        particle_add(nh, &particles[i]);
+    }
 
     pthread_attr_t attr;
     P( pthread_attr_init( &attr ) );
@@ -127,6 +159,7 @@ int main( int argc, char **argv )
     P( pthread_attr_destroy( &attr ) );
     free( thread_ids );
     free( threads );
+    nh_clear(nh);
     free( particles );
     if( fsave )
         fclose( fsave );
