@@ -61,8 +61,7 @@ int main( int argc, char **argv )
             for(int x = max(nx - 1, 0); x <= min(nx + 1, nh.size - 1); x++)
                 for (int y = max(ny - 1, 0); y <= min(ny + 1, nh.size - 1); y++) {
                     part_list_t* pl = nh.neighborhood[x * nh.size + y];
-                    while (pl != NULL)
-                    {
+                    while (pl != NULL){
                         apply_force(particles[i], *(pl->value));
                         pl = pl->next;
                     }

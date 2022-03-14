@@ -34,9 +34,7 @@ int main( int argc, char **argv )
     neighborhood_initialize(nh, nh_size);
 
     for (int i = 0; i < n; ++i)
-    {
         particle_add(nh, &particles[i]);
-    }
 
     omp_set_num_threads(n_threads);
 
@@ -44,12 +42,6 @@ int main( int argc, char **argv )
     //  simulate a number of time steps
     //
     double simulation_time = read_timer( );
-
-    double times[5];
-    for (int i = 0; i < 5; ++i)
-    {
-        times[i] = 0.0;
-    }
 
     #pragma omp parallel
     for( int step = 0; step < 1000; step++ )

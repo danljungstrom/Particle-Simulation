@@ -76,10 +76,7 @@ void* thread_routine(void* pthread_id)
 			if (gc != reduce_coord(nh.size, particles[i].x, particles[i].y))
 			{
 				if (!particle_remove(nh, &particles[i], gc))
-				{
-					fprintf(stdout, "Error: Failed to remove particle '%p'. Code must be faulty. Blame source writer.\n", &particles[i]);
-					exit(3);
-				}
+					printf("Could not remove particle.\n");
 				particle_add(nh, &particles[i]);
 			}
 		}
