@@ -1,3 +1,103 @@
+n = 1000, n_threads = 1, simulation time = 0.109357 seconds
+n = 1000, n_threads = 1, simulation time = 0.113203 seconds
+n = 1000, n_threads = 1, simulation time = 0.109685 seconds
+n = 1000, n_threads = 1, simulation time = 0.11603 seconds
+n = 1000, n_threads = 1, simulation time = 0.112251 seconds == Median
+n = 1000, n_threads = 2, simulation time = 0.093175 seconds
+n = 1000, n_threads = 2, simulation time = 0.097779 seconds
+n = 1000, n_threads = 2, simulation time = 0.084186 seconds
+n = 1000, n_threads = 2, simulation time = 0.083319 seconds
+n = 1000, n_threads = 2, simulation time = 0.085602 seconds == Median
+n = 1000, n_threads = 4, simulation time = 0.098379 seconds == Median
+n = 1000, n_threads = 4, simulation time = 0.103307 seconds
+n = 1000, n_threads = 4, simulation time = 0.103157 seconds
+n = 1000, n_threads = 4, simulation time = 0.095105 seconds
+n = 1000, n_threads = 4, simulation time = 0.094227 seconds
+n = 1000, n_threads = 6, simulation time = 0.117679 seconds
+n = 1000, n_threads = 6, simulation time = 0.122399 seconds == Median
+n = 1000, n_threads = 6, simulation time = 0.12295 seconds
+n = 1000, n_threads = 6, simulation time = 0.125785 seconds
+n = 1000, n_threads = 6, simulation time = 0.120627 seconds
+n = 1000, n_threads = 8, simulation time = 0.148697 seconds == Median
+n = 1000, n_threads = 8, simulation time = 0.146235 seconds
+n = 1000, n_threads = 8, simulation time = 0.151017 seconds
+n = 1000, n_threads = 8, simulation time = 0.169539 seconds
+n = 1000, n_threads = 8, simulation time = 0.148682 seconds
+n = 5000, n_threads = 1, simulation time = 0.584901 seconds
+n = 5000, n_threads = 1, simulation time = 0.566542 seconds == Median
+n = 5000, n_threads = 1, simulation time = 0.588734 seconds
+n = 5000, n_threads = 1, simulation time = 0.551255 seconds
+n = 5000, n_threads = 1, simulation time = 0.547456 seconds
+n = 5000, n_threads = 2, simulation time = 0.295166 seconds
+n = 5000, n_threads = 2, simulation time = 0.340253 seconds
+n = 5000, n_threads = 2, simulation time = 0.366952 seconds
+n = 5000, n_threads = 2, simulation time = 0.294191 seconds
+n = 5000, n_threads = 2, simulation time = 0.304054 seconds == Median
+n = 5000, n_threads = 4, simulation time = 0.189888 seconds
+n = 5000, n_threads = 4, simulation time = 0.226176 seconds == Median
+n = 5000, n_threads = 4, simulation time = 0.247021 seconds
+n = 5000, n_threads = 4, simulation time = 0.247974 seconds
+n = 5000, n_threads = 4, simulation time = 0.209388 seconds
+n = 5000, n_threads = 6, simulation time = 0.193862 seconds
+n = 5000, n_threads = 6, simulation time = 0.210153 seconds == Median
+n = 5000, n_threads = 6, simulation time = 0.223302 seconds
+n = 5000, n_threads = 6, simulation time = 0.236398 seconds
+n = 5000, n_threads = 6, simulation time = 0.205256 seconds
+n = 5000, n_threads = 8, simulation time = 0.218098 seconds
+n = 5000, n_threads = 8, simulation time = 0.230901 seconds == Median
+n = 5000, n_threads = 8, simulation time = 0.228399 seconds
+n = 5000, n_threads = 8, simulation time = 0.236711 seconds
+n = 5000, n_threads = 8, simulation time = 0.231757 seconds
+n = 10000, n_threads = 1, simulation time = 1.141 seconds == Median
+n = 10000, n_threads = 1, simulation time = 1.1382 seconds
+n = 10000, n_threads = 1, simulation time = 1.19292 seconds
+n = 10000, n_threads = 1, simulation time = 1.08 seconds
+n = 10000, n_threads = 1, simulation time = 1.25654 seconds
+n = 10000, n_threads = 2, simulation time = 0.68427 seconds
+n = 10000, n_threads = 2, simulation time = 0.59365 seconds
+n = 10000, n_threads = 2, simulation time = 0.569045 seconds
+n = 10000, n_threads = 2, simulation time = 0.655167 seconds
+n = 10000, n_threads = 2, simulation time = 0.594106 seconds == Median
+n = 10000, n_threads = 4, simulation time = 0.369319 seconds
+n = 10000, n_threads = 4, simulation time = 0.372861 seconds == Median
+n = 10000, n_threads = 4, simulation time = 0.365746 seconds
+n = 10000, n_threads = 4, simulation time = 0.383719 seconds
+n = 10000, n_threads = 4, simulation time = 0.392968 seconds
+n = 10000, n_threads = 6, simulation time = 0.334697 seconds
+n = 10000, n_threads = 6, simulation time = 0.31477 seconds
+n = 10000, n_threads = 6, simulation time = 0.288461 seconds
+n = 10000, n_threads = 6, simulation time = 0.328876 seconds == Median
+n = 10000, n_threads = 6, simulation time = 0.338509 seconds
+n = 10000, n_threads = 8, simulation time = 0.318991 seconds
+n = 10000, n_threads = 8, simulation time = 0.286073 seconds
+n = 10000, n_threads = 8, simulation time = 0.320499 seconds == Median
+n = 10000, n_threads = 8, simulation time = 0.34493 seconds
+n = 10000, n_threads = 8, simulation time = 0.339695 seconds
+n = 15000, n_threads = 1, simulation time = 1.85402 seconds
+n = 15000, n_threads = 1, simulation time = 1.72918 seconds
+n = 15000, n_threads = 1, simulation time = 2.03684 seconds
+n = 15000, n_threads = 1, simulation time = 1.85344 seconds == Median
+n = 15000, n_threads = 1, simulation time = 1.79837 seconds
+n = 15000, n_threads = 2, simulation time = 0.981369 seconds
+n = 15000, n_threads = 2, simulation time = 0.986035 seconds == Median
+n = 15000, n_threads = 2, simulation time = 1.02984 seconds
+n = 15000, n_threads = 2, simulation time = 0.968439 seconds
+n = 15000, n_threads = 2, simulation time = 1.04408 seconds
+n = 15000, n_threads = 4, simulation time = 0.592993 seconds == Median
+n = 15000, n_threads = 4, simulation time = 0.579582 seconds
+n = 15000, n_threads = 4, simulation time = 0.520137 seconds
+n = 15000, n_threads = 4, simulation time = 0.601327 seconds
+n = 15000, n_threads = 4, simulation time = 0.639395 seconds
+n = 15000, n_threads = 6, simulation time = 0.484444 seconds
+n = 15000, n_threads = 6, simulation time = 0.426254 seconds
+n = 15000, n_threads = 6, simulation time = 0.481601 seconds
+n = 15000, n_threads = 6, simulation time = 0.529631 seconds
+n = 15000, n_threads = 6, simulation time = 0.452366 seconds == Median
+n = 15000, n_threads = 8, simulation time = 0.466148 seconds
+n = 15000, n_threads = 8, simulation time = 0.484624 seconds
+n = 15000, n_threads = 8, simulation time = 0.469662 seconds
+n = 15000, n_threads = 8, simulation time = 0.478343 seconds == Median
+n = 15000, n_threads = 8, simulation time = 0.48346 seconds
 n = 20000, n_threads = 1, simulation time = 2.11979 seconds
 n = 20000, n_threads = 1, simulation time = 2.29671 seconds
 n = 20000, n_threads = 1, simulation time = 2.53677 seconds
