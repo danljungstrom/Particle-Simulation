@@ -166,11 +166,3 @@ char *read_string( int argc, char **argv, const char *option, char *default_valu
         return argv[iplace+1];
     return default_value;
 }
-
-int n_coord(double coord) {
-    return (int)(coord / cutoff);
-}
-
-int reduce_coord(int size, double x, double y) {
-    return (int)(n_coord(x) * size + n_coord(y));
-}

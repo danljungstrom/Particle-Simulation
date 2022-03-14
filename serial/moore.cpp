@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
 #include <math.h>
 #include "common.h"
 #include "moore.h"
@@ -63,4 +62,12 @@ void nh_clear(Nh& nh)
         }
     }
     free(nh.neighborhood);
+}
+
+int n_coord(double coord) {
+    return (int)(coord / cutoff);
+}
+
+int reduce_coord(int size, double x, double y) {
+    return (int)(n_coord(x) * size + n_coord(y));
 }
