@@ -1,0 +1,5 @@
+n = 20000, simulation time = 2.68185 seconds
+n = 20000, simulation time = 2.64174 seconds
+n = 20000, simulation time = 2.66404 seconds
+n = 20000, simulation time = 2.63783 seconds
+n = 20000, simulation time = 2.66289 seconds == Median
