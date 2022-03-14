@@ -1,0 +1,25 @@
+n = 1000, simulation time = 0.108905 seconds
+n = 1000, simulation time = 0.113076 seconds
+n = 1000, simulation time = 0.110098 seconds == Median
+n = 1000, simulation time = 0.109972 seconds
+n = 1000, simulation time = 0.110449 seconds
+n = 5000, simulation time = 0.605134 seconds
+n = 5000, simulation time = 0.614486 seconds
+n = 5000, simulation time = 0.624845 seconds
+n = 5000, simulation time = 0.612646 seconds == Median
+n = 5000, simulation time = 0.606463 seconds
+n = 10000, simulation time = 1.28275 seconds
+n = 10000, simulation time = 1.27391 seconds
+n = 10000, simulation time = 1.27479 seconds
+n = 10000, simulation time = 1.28135 seconds == Median
+n = 10000, simulation time = 1.29876 seconds
+n = 15000, simulation time = 1.94217 seconds
+n = 15000, simulation time = 1.99146 seconds
+n = 15000, simulation time = 1.95342 seconds
+n = 15000, simulation time = 1.96911 seconds
+n = 15000, simulation time = 1.9605 seconds == Median
+n = 20000, simulation time = 2.68185 seconds
+n = 20000, simulation time = 2.64174 seconds
+n = 20000, simulation time = 2.66404 seconds
+n = 20000, simulation time = 2.63783 seconds
+n = 20000, simulation time = 2.66289 seconds == Median

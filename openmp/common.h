@@ -12,24 +12,14 @@
 #define min_r   (cutoff/100)
 #define dt      0.0005
 
-inline int Min( int a, int b ) { return a < b ? a : b; }
-inline int Max( int a, int b ) { return a > b ? a : b; }
-
-/*
-#if defined(_WIN32) || defined(_WIN64)
-#define fmax max
-#define fmin min
-#pragma warning (disable:4996)
-#define snprintf sprintf_s
-#endif
-*/
+inline int min( int a, int b ) { return a < b ? a : b; }
+inline int max( int a, int b ) { return a > b ? a : b; }
 
 //
 //  saving parameters
 //
 const int NSTEPS = 1000;
 const int SAVEFREQ = 10;
-
 
 //
 // particle data structure
@@ -43,7 +33,6 @@ typedef struct
   double ax;
   double ay;
 } particle_t;
-
 
 //
 //  timing routines
@@ -70,5 +59,11 @@ void save( FILE *f, int n, particle_t *p );
 int find_option( int argc, char **argv, const char *option );
 int read_int( int argc, char **argv, const char *option, int default_value );
 char *read_string( int argc, char **argv, const char *option, char *default_value );
+
+//
+// moore routines
+//
+int n_coord(double coord);
+int reduce_coord(int size, double x, double y);
 
 #endif
